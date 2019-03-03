@@ -25,9 +25,6 @@ let startButton = document.createElement("button");
 
 startButton.textContent = "Start";
 
-// console.log(startButton);
-// console.log(startSection);
-
 startButton.addEventListener("click", startGame);
 
 startSection.append(startButton);
@@ -36,7 +33,7 @@ function startGame() {
 
     // start the timer
     let seconds = 10;
-    // console.log("starting timer with " + seconds + " seconds")
+
     startTimer(seconds);
     
     let questionSection = document.getElementById("question");
@@ -54,8 +51,6 @@ function startGame() {
         choices[i].setAttribute("data-value", i);
     }
 
-    // console.log(choices);
-
     for(i in game.choices[game.qIndex]) {
         choices[i].innerHTML = game.choices[game.qIndex][i];
         list.append(choices[i]);
@@ -64,9 +59,6 @@ function startGame() {
     }
 
     answersSection.append(list);
-    
-    
-
 }
 
 function startTimer(seconds) {
@@ -76,16 +68,13 @@ function startTimer(seconds) {
         timeAry.push(i);
     }
 
-    // console.log(timeAry);
-
     // length will change when popping values from the array,
     //   so lets store the length value first
     let length = timeAry.length;
     
-    // game.timeOutTracker = [];
     for (i=0; i<length; i++) {
+
         let t = timeAry.pop();
-        // console.log(t);
 
         if (t > 0) {
             game.timeOutTracker.push(
@@ -124,9 +113,19 @@ function clickOnAnswer() {
     if (game.choices[game.qIndex][answer] === game.answers[game.qIndex]) {
         game.answeredRight();
         console.log("answered Right: " + game.aRight);
+        let questionSection = document.getElementById("question");
+        let answersSection = document.getElementById("answers");
+
+        questionSection.innerHTML = "<h2>Congratulations, your answer was correct!</h2>";
+        answersSection.innerHTML = "";
     }
     else {
         game.answeredWrong();
         console.log("answered Wrong: " + game.aWrong);
+        let questionSection = document.getElementById("question");
+        let answersSection = document.getElementById("answers");
+
+        questionSection.innerHTML = "<h2>Wrong!</h2>";
+        answersSection.innerHTML = "<p>The answer was " + game.answers[game.qIndex] + "</p>";
     }
 }
