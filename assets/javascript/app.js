@@ -37,34 +37,45 @@ startSection.append(startButton);
 
 function startGame() {
     startSection.innerHTML = "";
-
-    // start the timer
-    let seconds = 10;
-
-    startTimer(seconds);
-    
     let questionSection = document.getElementById("question");
-    questionSection.innerHTML = "<h2>" + game.questions[game.qIndex] + "</h2>";
-
-    // print answers to console
     let answersSection = document.getElementById("answers");
 
-    let list = document.createElement("ul");
+    // If the question index is less than the number of questions, we move on to the next question
+    if (game.qIndex < game.questions.length) {
 
-    let choices = [];
-    for (i=0; i < game.choices[game.qIndex].length; i++) {
-        choices.push(document.createElement("li"));
-        choices[i].setAttribute("data-value", i);
+        // start the timer
+        let seconds = 10;
+
+        startTimer(seconds);
+        
+        questionSection.innerHTML = "<h2>" + game.questions[game.qIndex] + "</h2>";
+
+        let list = document.createElement("ul");
+
+        let choices = [];
+        for (i=0; i < game.choices[game.qIndex].length; i++) {
+            choices.push(document.createElement("li"));
+            choices[i].setAttribute("data-value", i);
+        }
+
+        for(i in game.choices[game.qIndex]) {
+            choices[i].innerHTML = game.choices[game.qIndex][i];
+            list.append(choices[i]);
+
+            choices[i].addEventListener("click", clickOnAnswer);
+        }
+
+        answersSection.append(list);
     }
+    // Otherwise we are at the end of the game
+    else {
+        let timeSection = document.getElementById("time");
 
-    for(i in game.choices[game.qIndex]) {
-        choices[i].innerHTML = game.choices[game.qIndex][i];
-        list.append(choices[i]);
-
-        choices[i].addEventListener("click", clickOnAnswer);
+        timeSection.innerHTML = "";
+        questionSection.innerHTML = "<h2>Game Over!</h2>";
+        answersSection.innerHTML = "<p>You answered " + game.aRight + " questions correctly</p>"
+                                 + "<p>You answered " + game.aWrong + " questions incorrectly</p>";
     }
-
-    answersSection.append(list);
 }
 
 function startTimer(seconds) {
@@ -103,6 +114,9 @@ function startTimer(seconds) {
                 answersSection.innerHTML = "<p>The answer was: " + game.answers[game.qIndex] + "</p>";
                 game.answeredWrong();
     
+                game.nextQuestion();
+                game.timeOutTracker[0] = setTimeout(startGame, 6 * 1000);
+
             }, ((t - seconds) * -1) * 1000));
         }   
     }
@@ -135,10 +149,6 @@ function clickOnAnswer() {
         answersSection.innerHTML = "<p>The answer was " + game.answers[game.qIndex] + "</p>";
     }
 
-    // get next question
     game.nextQuestion();
-    // update web page
-    // start new timer
-    // may need to cear timeout interval?
     game.timeOutTracker[0] = setTimeout(startGame, 6 * 1000);
 }
