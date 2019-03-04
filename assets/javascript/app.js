@@ -1,35 +1,42 @@
 console.log("Welcome to the game of Questions and Answers!");
 
+// tracks the state of the trivia game 
 let game = {
+    // index of the current trivia question
     qIndex: 0,
 
+    // number of right or wrong answers
     aRight: 0,
     aWrong: 0,
 
+    // trivia question
     questions: ["What is the average air speed velocity of a European unladen swallow?",
                 "What type of bird is a Gadwall?"],
+    // trivia answers
     answers:   ["11 meters per second",
                 "duck"],
+    // trivia answer choices
     choices:   [["9 meters per second", "11 meters per second", "13 meters per second", "15 meters per second"],
                 ["gull", "falcon", "goose", "duck"]],
     
+    // tracks the time out intervals used to move from game state to next game state
     timeOutTracker: [],
 
+    // functions for changing the state of the game
     nextQuestion: function() { this.qIndex++; },
     answeredRight: function() { this.aRight++; },
     answeredWrong: function() { this.aWrong++; }
 }
 
+// create and append a game start button to the initial web page
 let startSection = document.getElementById("start");
 let startButton = document.createElement("button");
-
 startButton.textContent = "Start";
-
 startButton.addEventListener("click", startGame);
-
 startSection.append(startButton);
 
 function startGame() {
+    startSection.innerHTML = "";
 
     // start the timer
     let seconds = 10;
@@ -37,7 +44,6 @@ function startGame() {
     startTimer(seconds);
     
     let questionSection = document.getElementById("question");
-
     questionSection.innerHTML = "<h2>" + game.questions[game.qIndex] + "</h2>";
 
     // print answers to console
@@ -128,4 +134,11 @@ function clickOnAnswer() {
         questionSection.innerHTML = "<h2>Wrong!</h2>";
         answersSection.innerHTML = "<p>The answer was " + game.answers[game.qIndex] + "</p>";
     }
+
+    // get next question
+    game.nextQuestion();
+    // update web page
+    // start new timer
+    // may need to cear timeout interval?
+    game.timeOutTracker[0] = setTimeout(startGame, 6 * 1000);
 }
