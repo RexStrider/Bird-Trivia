@@ -9,6 +9,12 @@ let game = {
     aRight: 0,
     aWrong: 0,
 
+    // game.seconds per question
+    seconds: 30,
+
+    // delay in game.seconds after answering a question
+    delay: 6,
+
     // trivia question
     questions: ["What is the average air speed velocity of a European unladen swallow?",
                 "What type of bird is a Gadwall?"],
@@ -31,11 +37,13 @@ let game = {
 // create and append a game start button to the initial web page
 let startSection = document.getElementById("start");
 let startButton = document.createElement("button");
+
 startButton.textContent = "Start";
-startButton.addEventListener("click", startGame);
+startButton.addEventListener("click", initTriviaQuest);
 startSection.append(startButton);
 
-function startGame() {
+// displays the trivia questions and starts the timers
+function initTriviaQuest() {
     startSection.innerHTML = "";
     let questionSection = document.getElementById("question");
     let answersSection = document.getElementById("answers");
@@ -43,65 +51,82 @@ function startGame() {
     // If the question index is less than the number of questions, we move on to the next question
     if (game.qIndex < game.questions.length) {
 
-        // start the timer
-        let seconds = 10;
-
-        startTimer(seconds);
+        // sets up the timer for the question
+        startTimer(game.seconds);
         
+        // displays the question to the main web page
         questionSection.innerHTML = "<h2>" + game.questions[game.qIndex] + "</h2>";
 
+        // creating a list to append our possible answers to
         let list = document.createElement("ul");
 
+        // creates a list and assigns the index relating to the relevant game choice
         let choices = [];
         for (i=0; i < game.choices[game.qIndex].length; i++) {
             choices.push(document.createElement("li"));
-            choices[i].setAttribute("data-value", i);
+
+            // tracks which choice relates to the choices given by the game object
+            choices[i].setAttribute("data-index", i);
         }
 
+        // assigns the possible answer to the appropriate choice
         for(i in game.choices[game.qIndex]) {
+
+            // gets the choice at i from the question at qIndex and assigns it to the appropriate list element
             choices[i].innerHTML = game.choices[game.qIndex][i];
+
+            // appends the list element to the unordered list
             list.append(choices[i]);
 
+            // adding event listener to determine which choice the user clicks on
             choices[i].addEventListener("click", clickOnAnswer);
         }
 
+        // displays the list of choices to the main web page
         answersSection.append(list);
     }
+
     // Otherwise we are at the end of the game
     else {
         let timeSection = document.getElementById("time");
 
+        // removes the text stating how much time was left for the previously asked qeustion
         timeSection.innerHTML = "";
+
+        // Game Over text is displayed on the main web page with the users statistics
         questionSection.innerHTML = "<h2>Game Over!</h2>";
         answersSection.innerHTML = "<p>You answered " + game.aRight + " questions correctly</p>"
                                  + "<p>You answered " + game.aWrong + " questions incorrectly</p>";
     }
 }
 
-function startTimer(seconds) {
+// sets the timers for the Trivia questions based on the game state
+function startTimer() {
 
+    // stores multiple values for each timer
     let timeAry = [];
-    for (i=0; i<=seconds; i++) {
+    for (i=0; i<=game.seconds; i++) {
         timeAry.push(i);
     }
 
-    // length will change when popping values from the array,
-    //   so lets store the length value first
-    let length = timeAry.length;
-    
-    for (i=0; i<length; i++) {
+    // time array will continue to reduce in size while we create more timers    
+    while (timeAry.length > 0) {
 
+        // popping reduces the length of the time array
         let t = timeAry.pop();
 
+        // All but the last timer should display the time remaining
         if (t > 0) {
             game.timeOutTracker.push(
                 setTimeout(function() {
                 let timeSection = document.getElementById("time");
     
-                timeSection.innerHTML = "<h2>Time Remaining: " + t + " left</h2>";
+                timeSection.innerHTML = "<p>Time Remaining: " + t + " left</p>";
     
-            }, ((t - seconds) * -1) * 1000));
+            }, ((t - game.seconds) * -1) * 1000));
         }
+        
+        // final timer displayes the answer and states times up
         else {
             game.timeOutTracker.push(
                 setTimeout(function() {
@@ -115,9 +140,9 @@ function startTimer(seconds) {
                 game.answeredWrong();
     
                 game.nextQuestion();
-                game.timeOutTracker[0] = setTimeout(startGame, 6 * 1000);
+                game.timeOutTracker[0] = setTimeout(initTriviaQuest, game.delay * 1000);
 
-            }, ((t - seconds) * -1) * 1000));
+            }, ((t - game.seconds) * -1) * 1000));
         }   
     }
 }
@@ -128,7 +153,7 @@ function clickOnAnswer() {
         clearTimeout(game.timeOutTracker[i]);
     }
 
-    let answer = this.getAttribute("data-value");
+    let answer = this.getAttribute("data-index");
 
     if (game.choices[game.qIndex][answer] === game.answers[game.qIndex]) {
         game.answeredRight();
@@ -150,5 +175,5 @@ function clickOnAnswer() {
     }
 
     game.nextQuestion();
-    game.timeOutTracker[0] = setTimeout(startGame, 6 * 1000);
+    game.timeOutTracker[0] = setTimeout(initTriviaQuest, game.delay * 1000);
 }
