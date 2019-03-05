@@ -12,3 +12,4 @@ How to play
 * You have 30 seconds to answer each question
 
 * Right and wrong answers are tallied up and displayed at the end
+
