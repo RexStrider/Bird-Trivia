@@ -1,6 +1,7 @@
 body {
     background-color: burlywood;
     color: aliceblue;
+    font-size: 20px;
 }
 
 h1 {
@@ -14,7 +15,7 @@ h2 {
 }
 
 p {
-    font-size: 16px;
+    /* font-size: 16px; */
     line-height: 24px;
 }
 
@@ -35,11 +36,41 @@ p {
 }
 
 #start {
-    margin-top: 20%;
+    /* margin-top: 20%; */
 }
 
 #start button {
     font-size: 24px;
     height: 40px;
     width: 100px;
+    margin-top: 150%;
+}
+
+#time {
+    margin-top: 5%;
+}
+
+#question {
+    margin-top: 5%;
+}
+
+#answers {
+    margin-top: 5%;
+}
+
+#answers ul li {
+    text-align: center;
+    margin-top: 1%;
+    /* font-size: 20px; */
+    line-height: 28px;
+    /* padding: 5px; */
+    width: 200px;
+}
+
+#answers ul li:hover {
+    background-color: yellow;
+    border: 2px solid darkblue;
+    border-radius: 5px;
+    color: indigo;
+    cursor: pointer;
 }
