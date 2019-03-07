@@ -17,13 +17,22 @@ let game = {
 
     // trivia question
     questions: ["What is the average air speed velocity of a European unladen swallow?",
-                "What type of bird is a Gadwall?"],
+                "What type of bird is a Gadwall?",
+                "How many species of humming birds exist?",
+                "The California Thrasher was named after which of the following?",
+                "A Killdeer may perform which of the following behavior?"],
     // trivia answers
     answers:   ["11 meters per second",
-                "duck"],
+                "duck",
+                "about 330",
+                "a mix between the words thrush and threshing grain",
+                "luring away predators from their young with a broken wing display"],
     // trivia answer choices
-    choices:   [["9 meters per second", "11 meters per second", "13 meters per second", "15 meters per second"],
-                ["gull", "falcon", "goose", "duck"]],
+    choices:   [["8 meters per second", "11 meters per second", "14 meters per second", "19 meters per second"],
+                ["gull", "falcon", "goose", "duck"],
+                ["about 110", "about 220", "about 330", "about 440"],
+                ["a mix between the words thrush and threshing grain", "the birds agressive behavior", "the skateboard magazine 'Thrasher'", "the ornithologist, William T. Thrasher"],
+                ["swooping down at predators that get too close to its young", "imitating the sounds of other birds", "luring away predators from their young with a broken wing display", "screeching loudly and performing acrobatic loops in the air at sunrise"]],
     
     // tracks the time out intervals used to move from game state to next game state
     timeOutTracker: [],
