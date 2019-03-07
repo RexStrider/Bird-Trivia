@@ -1,5 +1,14 @@
+html { 
+    background-image: url("../images/birds-background.jpg"); 
+    /* -webkit-background-size: cover; */
+    /* -moz-background-size: cover; */
+    /* -o-background-size: cover; */
+    background-size: 50%;
+}
+
 body {
-    background-color: burlywood;
+    /* background-color: burlywood; */
+    /* background-image: url("../images/birds-background.jpg"); */
     color: aliceblue;
     font-size: 20px;
 }
@@ -25,7 +34,7 @@ p {
     align-items: center;
     background-color: brown;
     height: 500px;
-    width: 60%;
+    width: 50%;
     margin-top: 5%;
     margin-left: 20%;
     margin-right: 20%;
@@ -42,8 +51,8 @@ p {
 #start button {
     font-size: 24px;
     height: 40px;
-    width: 100px;
-    margin-top: 150%;
+    width: 100%;
+    margin-top: 70%;
 }
 
 #time {
@@ -51,7 +60,9 @@ p {
 }
 
 #question {
-    margin-top: 5%;
+    margin: 5% 5% 0% 5%; 
+    /* margin-top: 5%; */
+    
 }
 
 #answers {

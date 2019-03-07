@@ -38,7 +38,7 @@ let game = {
 let startSection = document.getElementById("start");
 let startButton = document.createElement("button");
 
-startButton.textContent = "Start";
+startButton.textContent = "press start to play";
 startButton.addEventListener("click", initTriviaQuest);
 startSection.append(startButton);
 
