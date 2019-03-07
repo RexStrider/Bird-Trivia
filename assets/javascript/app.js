@@ -82,6 +82,9 @@ function initTriviaQuest() {
             choices[i].addEventListener("click", clickOnAnswer);
         }
 
+        //remove the previous answer from the web page
+        answersSection.innerHTML="";
+
         // displays the list of choices to the main web page
         answersSection.append(list);
     }
