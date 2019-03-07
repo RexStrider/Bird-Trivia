@@ -36,8 +36,8 @@ p {
     height: 500px;
     width: 50%;
     margin-top: 5%;
-    margin-left: 20%;
-    margin-right: 20%;
+    margin-left: 25%;
+    margin-right: 25%;
 }
 
 #title {
@@ -71,7 +71,8 @@ p {
 
 #answers ul li {
     text-align: center;
-    margin-top: 1%;
+    /* margin-top: 1%; */
+    margin: 2% 0% 2% 0%;
     /* font-size: 20px; */
     line-height: 28px;
     /* padding: 5px; */
