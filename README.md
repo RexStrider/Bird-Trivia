@@ -16,25 +16,9 @@ A trivia game about birds.
 
 * currently there are 5 questions in total
 
-## Instructions
+Click the link below to play the game!
 
-Clone this repo,
-
-```
-// ssh
-git clone git@github.com:RexStrider/TriviaGame.git
-
-// or
-
-// https
-git clone https://github.com/RexStrider/TriviaGame.git
-```
-
-go to the root directory of this project,
-
-and open the index.html file in your default browser.
-
-Make sure you have [Git](https://git-scm.com/downloads) installed before cloning the repo!
+[Bird Trivia](https://rexstrider.github.io/Bird-Trivia/)
 
 ## Technology
 
