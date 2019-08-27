@@ -22,6 +22,7 @@ Click the link below to play the game!
 
 ## Technology
 
+ - JQuery
  - JavaScript
  - HTML
  - CSS
